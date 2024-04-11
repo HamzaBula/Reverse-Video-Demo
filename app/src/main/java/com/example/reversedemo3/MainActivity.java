@@ -118,40 +118,15 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("e.toString()......"+e.toString());
             throw new RuntimeException(e);
         }
-        partReverse();
+        ReverseMethod();
     }
 
 
 
 
-    private void partReverse(){
+    private void ReverseMethod(){
 
         System.out.println("partReverse called");
-
-        FFmpegKitConfig.enableStatisticsCallback(new StatisticsCallback() {
-            @Override
-            public void apply(Statistics statistics) {
-                // CALLED WHEN SESSION GENERATES STATISTICS
-                System.out.println("statistics.toString()........."+statistics.toString());
-                System.out.println("statistics.getTime()........."+statistics.getTime());
-                float percentage = ((float) (((statistics.getTime() * 100) /inputFileDuration)));
-                System.out.println("percentage......"+percentage);
-                //FFmpegKitConfig.clearSessions();
-            }
-        });
-        FFmpegKitConfig.enableLogCallback(new LogCallback() {
-            @Override
-            public void apply(com.arthenica.ffmpegkit.Log log) {
-                System.out.println("Log Call back = "+log.toString());
-            }
-        });
-
-
-
-//        MediaInformationSession mediaInformation = FFprobeKit.getMediaInformation(inputPath);
-//        mediaInformation.getMediaInformation();
-//        System.out.println("mediaInformation.toString() ="+mediaInformation.toString());
-
 
         FFmpegSession session = FFmpegKit.executeAsync("-i " + inputPath + " -filter_complex reverse " + outputPath, new FFmpegSessionCompleteCallback() {
 
@@ -201,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("session.getAllLogsAsString()......."+session.getAllLogsAsString());
         System.out.println("session.getOutput()......."+session.getOutput());
     }
+
 
     public long getVideoDuration(String videoPath) throws IOException {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
